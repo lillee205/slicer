@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="{{url_for('static', filename = 'css/base.css') }}">
+    {% block head %}
+    {% endblock %}
+    <title>slicer</title>
+</head>
+
+<body>
+    <h1>slice slice slice</h1>
+    <form id="submitItem">
+        <input type=text id="item" placeholder="type string or array">
+        <input type=submit value="submit">
+    </form>
+    <div id="hide" style="display: none;">
+        <div id="itemContainer">
+        </div>
+    {% block content %} 
+    {% endblock %}
+
+    </div>
+    <script>
+        $('#submitItem').submit(function (e) {
+            e.preventDefault()
+            $('#pythonFuncContainer').html("")
+            var itemVal;
+            try {
+                itemVal = eval($('#item').val())
+            }
+            catch (error) {
+                alert("Error with your input: " + error)
+                return false
+            }
+            finally {
+                if ($.type(itemVal) != "array" && $.type(itemVal) != "string") {
+                    alert("Error with your input: Input must be string or array")
+                    return false
+                }
+            }
+            $("#hide").show()
+            var htmlStr = ""
+            var isArray = $.isArray(itemVal)
+            for (index in itemVal) {
+                var currStr = ``
+                if (isArray) {
+                    var x = itemVal[index];
+                    if ($.type(itemVal[index]) == "string") {
+                        x = "\"" + itemVal[index] + "\""
+                    }
+                    currStr = `<div class = 'indexDiv' data-value = ${index}>${x}</div>`
+                    if (index != itemVal.length - 1)
+                        currStr += ", "
+                }
+                else {
+                    currStr = `<div class = 'indexDiv' data-value = ${index}>${itemVal[index]}</div>`
+                }
+                htmlStr += currStr
+            }
+            if (isArray) {
+                htmlStr = "[" + htmlStr + "]"
+            }
+            $("#itemContainer").html(htmlStr)
+        })
+    </script>
+    {% block script %}
+    {% endblock %}
+</body>
+
+</html>

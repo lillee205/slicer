@@ -1,0 +1,4 @@
+.indexDiv:hover{
+    cursor:default !important;
+    background-color: transparent !important;
+}

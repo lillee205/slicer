@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<form id="submitIndexes">
+    <input type="hidden" name="selectedIndexes" id="selectedIndexes" >
+    <input type="submit" value="submit">
+</form>
+<div id="pythonFuncContainer">
+
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+    $(function () {
+
+        $(document).on("click", ".indexDiv", function () {
+            var selectedColor = "rgb(101, 204, 248)"
+            var currColor = $(this).css("background-color")
+            if (currColor != selectedColor) {
+                $(this).css("background-color", selectedColor)
+            }
+            else {
+                $(this).css("background-color", "")
+            }
+        })
+        $('#submitIndexes').submit(function (e) {
+            e.preventDefault()
+            selectedIndexes = []
+            $(".indexDiv[style='background-color: rgb(101, 204, 248);']").each(function () {
+                selectedIndexes.push(eval($(this).attr('data-value')))
+            });
+            $.getJSON("/bg_process_getSplice", {
+                indexes: JSON.stringify(selectedIndexes),
+            }, function (data) {
+                $('#pythonFuncContainer').html(data)
+            })
+        })
+        
+    })
+</script>
+{% endblock %}

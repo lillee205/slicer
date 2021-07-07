@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{url_for('static', filename = 'css/typeIndex.css') }}">
+{% endblock %}
+
+{% block content %} 
+
+<div id = "typePythonIndex">
+    <form id = "typeIndexForm">
+        <input id = "typeIndexInput" type ="text" placeholder ="type python splicing here">
+        <input type = "submit" value = "submit">
+
+    </form>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+$(function(){
+    $('#typeIndexForm').submit(function(e){
+        e.preventDefault()
+        $.getJSON("/bg_process_typeSplice", {
+                item: $('#item').val(),
+                splice: $("#typeIndexInput").val()
+            }, function (data) {
+                if (typeof data.result == "string" && data.result.startsWith("Error")){
+                    alert(data.result) 
+                    return
+                }
+                selectedIndexes = eval(data.result).flat()
+                var selectedColor = "rgb(101, 204, 248)"
+                console.log(selectedIndexes)
+                $(".indexDiv").each(function(index){
+                    $(this).css("background-color", "transparent")
+                    if (selectedIndexes.includes(index)){
+                        console.log(index)
+
+                        $(this).css("background-color", selectedColor)
+                    }
+                })
+            })
+    })
+})
+</script>
+{% endblock %} 

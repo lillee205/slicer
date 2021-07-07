@@ -1,0 +1,67 @@
+html,body{
+    height: 100vh;
+    width: 100vw;
+    text-align: center;
+    margin: 0;
+    background-image: url(https://images-na.ssl-images-amazon.com/images/I/31F8bPID0PL._AC_.jpg);
+    background-repeat: no-repeat;
+    background-position-y: bottom;
+    background-position-x: right;
+
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Old versions of Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+}
+h1{
+    margin: 0;
+    padding-top: 15vh;
+    font-weight: normal;
+}
+input[type=text]{
+    padding: 0.5em;
+    border-radius: 5px;
+}
+
+input[type=submit]{
+    padding: 0.5em;
+    border-radius: 5px;
+}
+input[type=submit]:hover{
+    cursor: pointer;
+}
+
+#item{
+    margin-top: 5vh;
+}
+#itemContainer{
+    padding: 4em;
+    font-size: 2em;
+}
+
+.indexDiv{
+    display: inline-block;
+    padding: 0.1em 0.3em;
+    margin: 0 0.1em;
+    transition: 0.1s;
+    border-radius: 3px;
+}
+
+.indexDiv:hover{
+    cursor: pointer;
+    background-color: lightblue;
+    transition: 0.1s;
+
+}
+
+#pythonFuncContainer{
+    font-size: 1.5em;
+    margin-top: 5vh;
+}
